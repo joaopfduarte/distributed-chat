@@ -1,4 +1,9 @@
 package br.distributed.system.chat.domain.dto;
 
-public class PostMessageRequestDTO {
+import java.time.Instant;
+
+public record PostMessageRequestDTO(String idemKey,
+                                    String text,
+                                    Instant timestampClient,
+                                    String nickName) {
 }

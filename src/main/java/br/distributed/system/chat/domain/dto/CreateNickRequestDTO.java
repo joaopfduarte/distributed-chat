@@ -1,4 +1,4 @@
 package br.distributed.system.chat.domain.dto;
 
-public class CreateNickRequestDTO {
+public record CreateNickRequestDTO(String name) {
 }

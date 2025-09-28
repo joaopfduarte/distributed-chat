@@ -1,4 +1,5 @@
 package br.distributed.system.chat.domain.dto;
 
-public class CreateGroupRequestDTO {
+public record CreateGroupRequestDTO(String name) {
+
 }

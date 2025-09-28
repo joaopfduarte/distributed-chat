@@ -1,4 +1,6 @@
 package br.distributed.system.chat.domain.dto;
 
-public class GroupResponseDTO {
+import java.time.Instant;
+
+public record GroupResponseDTO(Long id, String name, Instant createdAt) {
 }
