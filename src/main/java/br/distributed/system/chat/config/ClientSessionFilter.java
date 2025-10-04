@@ -41,8 +41,8 @@ public class ClientSessionFilter implements Filter {
 
         String clientId = req.getHeader(ClientSessionRegistry.CLIENT_ID_HEADER);
 
-        // Enforce session for chat endpoints (/groups/**)
-        if (path.startsWith("/groups")) {
+        // Enforce session ONLY for message endpoints: /groups/{id}/messages
+        if (path.matches("^/groups/\\d+/messages(?:/)?(?:.*)?$")) {
             if (!registry.isValid(clientId)) {
                 // 440 Login Time-out (non-standard) or 403; use 440 to signal session eviction/timeout.
                 res.setStatus(440);
@@ -50,7 +50,7 @@ public class ClientSessionFilter implements Filter {
                 return;
             }
             // Update lastSend only for POST /groups/{id}/messages
-            if (method.equalsIgnoreCase("POST") && path.matches("^/groups/\\d+/messages/?$")) {
+            if (method.equalsIgnoreCase("POST")) {
                 registry.touchOnSend(clientId);
             }
         }
@@ -59,7 +59,9 @@ public class ClientSessionFilter implements Filter {
     }
 
     private boolean isPublicPath(String path) {
+        // Groups listing/creation are public to allow UI bootstrapping
         return path.startsWith("/nick")
+                || path.equals("/groups")
                 || path.startsWith("/swagger")
                 || path.startsWith("/v3/api-docs")
                 || path.startsWith("/h2-console")
