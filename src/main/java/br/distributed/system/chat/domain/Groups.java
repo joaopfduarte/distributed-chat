@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "chat_groups")
 public class Groups {
 
     @Id
