@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.time.Instant;
 
 /**
  * Periodically checks if groups have active clients; if not, deletes messages for that group.
@@ -37,7 +38,7 @@ public class GroupJanitor {
     public void purgeInactiveGroupsMessages() {
         groupRepository.findAll().forEach(g -> {
             long gid = g.getId();
-            var now = java.time.Instant.now();
+            var now = Instant.now();
             long ageSec = g.getCreatedAt() == null ? Long.MAX_VALUE : java.time.Duration.between(g.getCreatedAt(), now).getSeconds();
 
             boolean active10s = activityTracker.hasActiveClients(gid, ACTIVITY_WINDOW);

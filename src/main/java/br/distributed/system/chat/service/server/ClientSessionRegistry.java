@@ -120,8 +120,4 @@ public class ClientSessionRegistry {
         }
     }
 
-    public Optional<String> nickOf(String clientId) {
-        Session s = sessions.get(clientId);
-        return s == null ? Optional.empty() : Optional.ofNullable(s.nick);
-    }
 }

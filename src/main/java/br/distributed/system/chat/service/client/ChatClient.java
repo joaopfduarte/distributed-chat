@@ -127,7 +127,8 @@ public class ChatClient {
                     .build();
             var resp = http.send(req, HttpResponse.BodyHandlers.ofString());
             if (resp.statusCode() == 440) {
-                reRegister();
+                // Do not auto re-register; surface to caller so UI can terminate this client window
+                throw new IOException("postMessage failed: status=440, body=" + resp.body());
             } else if (resp.statusCode() / 100 == 2) {
                 return json.readValue(resp.body(), new TypeReference<>(){});
             } else if (shouldRetry(resp.statusCode()) && attempt < maxAttempts) {
@@ -154,10 +155,7 @@ public class ChatClient {
         var req = reqBuilder.build();
         var resp = http.send(req, HttpResponse.BodyHandlers.ofString());
         if (resp.statusCode() == 440) {
-            reRegister();
-            // rebuild request to include new X-Client-Id and retry once
-            req = baseRequest("/groups/" + groupId + "/messages" + qs).GET().build();
-            resp = http.send(req, HttpResponse.BodyHandlers.ofString());
+            throw new IOException("HTTP call failed: status=440, body=" + resp.body());
         }
         ensureOkOrThrow(resp);
         return json.readValue(resp.body(), new TypeReference<>(){});

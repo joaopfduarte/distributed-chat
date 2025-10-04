@@ -82,7 +82,14 @@ public class ClientChatWindow extends Stage {
             try {
                 client.postMessage(groupId, text);
             } catch (Exception ex) {
-                Platform.runLater(() -> showError("Falha ao enviar: " + ex.getMessage()));
+                String msg = String.valueOf(ex.getMessage());
+                Platform.runLater(() -> {
+                    if (msg.contains("status=440")) {
+                        handleSessionTerminated("Você foi removido do chat pelo servidor (440). Esta janela está encerrada.");
+                    } else {
+                        showError("Falha ao enviar: " + msg);
+                    }
+                });
             }
         }, "send-thread").start();
     }
@@ -108,9 +115,23 @@ public class ClientChatWindow extends Stage {
                     sinceCursor = Instant.parse(nextCursor);
                 }
             } catch (Exception ex) {
-                Platform.runLater(() -> showInfo("Poll falhou: " + ex.getMessage()));
+                String msg = String.valueOf(ex.getMessage());
+                Platform.runLater(() -> {
+                    if (msg.contains("status=440")) {
+                        handleSessionTerminated("Você foi removido do chat pelo servidor (440). Esta janela está encerrada.");
+                    } else {
+                        showInfo("Poll falhou: " + msg);
+                    }
+                });
             }
         }, 0, 1, TimeUnit.SECONDS);
+    }
+
+    private void handleSessionTerminated(String finalMsg) {
+        try { scheduler.shutdownNow(); } catch (Exception ignored) {}
+        txtInput.setDisable(true);
+        btnSend.setDisable(true);
+        txtMessages.appendText("\n--- " + finalMsg + " ---\n");
     }
 
     private void showError(String msg) {
