@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/public/group")
+@RequestMapping("/groups")
 class GroupController {
     private final GroupService groupService;
 

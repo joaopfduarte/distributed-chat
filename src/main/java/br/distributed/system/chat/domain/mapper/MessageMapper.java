@@ -12,8 +12,8 @@ public interface MessageMapper {
                 m.getGroupId(),
                 m.getNickName(),
                 m.getText(),
-                m.getTimestampClient(),
                 m.getTimestampServer(),
+                m.getTimestampClient(),
                 m.getIdemKey()
         );
     }

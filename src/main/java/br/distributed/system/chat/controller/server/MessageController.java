@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/public/groups/{groupId}/message")
+@RequestMapping("/groups/{groupId}/messages")
 class MessageController {
     private final MessageService service;
 
@@ -25,9 +26,8 @@ class MessageController {
             @RequestBody PostMessageRequestDTO req
     ) {
         var resp = service.postMessage(groupId, req);
-        // 200 se foi deduplicação? Aqui simplificamos retornando 201 sempre que chegar até aqui com save/find.
-        // Para diferenciar, seria necessário sinal do service; opcionalmente manter 200 ao detectar encontrado.
-        return ResponseEntity.status(201).body(resp);
+        // Responder 200 somente após armazenar no SGBD (novo ou deduplicado).
+        return ResponseEntity.ok(resp);
     }
 
     @GetMapping

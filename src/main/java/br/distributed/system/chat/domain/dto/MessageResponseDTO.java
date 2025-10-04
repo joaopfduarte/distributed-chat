@@ -7,5 +7,6 @@ public record MessageResponseDTO(Long id,
                                  String nickName,
                                  String text,
                                  Instant timestampServer,
-                                 Instant server, String idemKey) {
+                                 Instant timestampClient,
+                                 String idemKey) {
 }
