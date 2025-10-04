@@ -1,4 +1,4 @@
-package br.distributed.system.chat.service;
+package br.distributed.system.chat.service.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,6 @@
 package br.distributed.system.chat.repository;
 
 import br.distributed.system.chat.domain.Message;
-import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,4 +15,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findByGroupIdAndTimestampServerGreaterThanOrderByTimestampServerAsc(Long groupId, Instant timestampServer, Pageable pageable);
 
+    void deleteByGroupId(Long groupId);
 }

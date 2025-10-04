@@ -1,4 +1,4 @@
-package br.distributed.system.chat.service;
+package br.distributed.system.chat.service.server;
 
 import br.distributed.system.chat.repository.GroupRepository;
 import br.distributed.system.chat.domain.Groups;

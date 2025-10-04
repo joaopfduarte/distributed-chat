@@ -54,7 +54,7 @@ public class ChatClient {
         var body = json.writeValueAsString(Map.of("name", nick));
         var req = HttpRequest.newBuilder()
                 .uri(URI.create(baseUrl + "/nick"))
-                .timeout(Duration.ofSeconds(15))
+                .timeout(Duration.ofSeconds(5))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
@@ -149,12 +149,14 @@ public class ChatClient {
         if (limit > 0) {
             qs += (qs.isEmpty()?"?":"&") + "limit=" + limit;
         }
-        var req = baseRequest("/groups/" + groupId + "/messages" + qs)
-                .GET().build();
+        var reqBuilder = baseRequest("/groups/" + groupId + "/messages" + qs)
+                .GET();
+        var req = reqBuilder.build();
         var resp = http.send(req, HttpResponse.BodyHandlers.ofString());
         if (resp.statusCode() == 440) {
             reRegister();
-            // retry once after re-register
+            // rebuild request to include new X-Client-Id and retry once
+            req = baseRequest("/groups/" + groupId + "/messages" + qs).GET().build();
             resp = http.send(req, HttpResponse.BodyHandlers.ofString());
         }
         ensureOkOrThrow(resp);

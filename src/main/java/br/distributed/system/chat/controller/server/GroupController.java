@@ -3,7 +3,7 @@ package br.distributed.system.chat.controller.server;
 import br.distributed.system.chat.domain.dto.CreateGroupRequestDTO;
 import br.distributed.system.chat.domain.dto.GroupResponseDTO;
 import br.distributed.system.chat.domain.mapper.GroupMapper;
-import br.distributed.system.chat.service.GroupService;
+import br.distributed.system.chat.service.server.GroupService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

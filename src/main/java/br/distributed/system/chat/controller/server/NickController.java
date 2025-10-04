@@ -1,7 +1,7 @@
 package br.distributed.system.chat.controller.server;
 
 import br.distributed.system.chat.domain.dto.CreateNickRequestDTO;
-import br.distributed.system.chat.service.ClientSessionRegistry;
+import br.distributed.system.chat.service.server.ClientSessionRegistry;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

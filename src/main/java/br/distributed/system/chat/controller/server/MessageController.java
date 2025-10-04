@@ -3,13 +3,12 @@ package br.distributed.system.chat.controller.server;
 import br.distributed.system.chat.domain.dto.ListMessagesResponseDTO;
 import br.distributed.system.chat.domain.dto.MessageResponseDTO;
 import br.distributed.system.chat.domain.dto.PostMessageRequestDTO;
-import br.distributed.system.chat.service.MessageService;
+import br.distributed.system.chat.service.server.MessageService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/groups/{groupId}/messages")

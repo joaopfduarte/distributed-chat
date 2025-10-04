@@ -1,4 +1,4 @@
-package br.distributed.system.chat.service;
+package br.distributed.system.chat.service.server;
 
 import br.distributed.system.chat.domain.Groups;
 import br.distributed.system.chat.domain.Message;
@@ -8,7 +8,6 @@ import br.distributed.system.chat.domain.dto.PostMessageRequestDTO;
 import br.distributed.system.chat.domain.mapper.MessageMapper;
 import br.distributed.system.chat.repository.MessageRepository;
 
-import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
