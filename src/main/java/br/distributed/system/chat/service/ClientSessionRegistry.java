@@ -38,7 +38,7 @@ public class ClientSessionRegistry {
 
     public ClientSessionRegistry(
             @Value("${chat.max-clients:5}") int maxClients,
-            @Value("${chat.idle-threshold-seconds:5}") long idleSeconds
+            @Value("${chat.idle-threshold-seconds:15}") long idleSeconds
     ) {
         this.maxClients = Math.max(1, maxClients);
         this.idleThreshold = Duration.ofSeconds(Math.max(1, idleSeconds));
